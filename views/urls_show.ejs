@@ -12,10 +12,11 @@
 <body style="font-size:20px; padding:50px;">
     <!-- Add EJS code here -->
     <% include ../views/partials/_header %>
+    <br />
+    <h3>TinyURL for
+        <%= longURL[shortURL] %> :</h3>
     <ul>
         <li>
-            TinyURL for
-            <%= longURL[shortURL] %> :
             <%= shortURL %>
         </li>
     </ul>
