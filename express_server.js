@@ -20,7 +20,7 @@ function generateRandomString() {
     return randomString;
 }
 
-
+console.log(generateRandomString());
 
 
 const bodyParser = require("body-parser");
@@ -31,8 +31,10 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
-    console.log(req.body); // Log the POST request body to the console
-    res.send("Ok"); // Respond with 'Ok' (we will replace this)
+    let shortURL = generateRandomString(); // Respond with 'Ok' (we will replace this)
+    let longURL = req.body.longURL;
+    urlDatabase[shortURL] = longURL;
+    res.redirect('urls/' + shortURL);
 });
 
 app.get("/urls", (req, res) => {
