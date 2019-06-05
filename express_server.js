@@ -1,12 +1,10 @@
 //localhost:8080/urls
 //localhost:8080/urls/new
 
-
-
-
-var express = require("express");
-var app = express();
-var PORT = 8080; // default port 8080
+const express = require("express");
+const app = express();
+const PORT = 8080; // default port 8080
+const cookieParser = require('cookie-parser');
 
 app.set("view engine", "ejs")
 
@@ -90,3 +88,11 @@ app.get("/urls.json", (req, res) => {
 app.get("/hello", (req, res) => {
     res.send("<html><body>Hello <b>World</b></body></html>\n");
 });
+
+app.post("/login", (req, res) => {
+    console.log("username: ", req.body.username)
+    let userName = req.body.username;
+    res.cookie('username', userName);
+    res.redirect('/urls')
+
+})
