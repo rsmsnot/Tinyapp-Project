@@ -9,6 +9,20 @@ var urlDatabase = {
     "9sm5xK": "http://www.google.com"
 };
 
+function generateRandomString() {
+    let characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    let length = 6;
+    let randomString = '';
+    for (let i = 0; i < length; i++) {
+        let randomNumber = Math.floor(Math.random() * characters.length);
+        randomString += characters.charAt(randomNumber);
+    }
+    return randomString;
+}
+
+
+
+
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 
