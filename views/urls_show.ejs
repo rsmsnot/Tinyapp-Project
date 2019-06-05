@@ -19,6 +19,10 @@
         <li>
             <a href=<%=`/u/${shortURL}` %>>
                 <%= shortURL %> </a>
+            <form method="POST" action="/urls/<%= shortURL %>">
+                <input type="text" name="newName" id="newName">
+                <button type="submit">Edit URL</button>
+            </form>
         </li>
     </ul>
 </body>
