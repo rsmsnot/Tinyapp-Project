@@ -22,8 +22,9 @@
                     <%=shortURL %> : </a></b>
             <%= urls[shortURL] %>
             <form method="POST" action="/urls/<%= shortURL%>/delete" <%=shortURL %>/delete">
-                <button type="submit">Delete URL</button>
+                <button type="submit" class="btn btn-primary">Delete URL</button>
             </form>
+            <a href="/urls/<%= shortURL %>"><button type="submit" class="btn btn-primary">Edit URL</button></a>
         </li>
         <% }; %>
     </ul>
