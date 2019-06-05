@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <style>.inline {display:inline-block;}</style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -21,7 +22,7 @@
                 <a href=<%=`/u/${shortURL}` %>>
                     <%=shortURL %> : </a></b>
             <%= urls[shortURL] %>
-            <form method="POST" action="/urls/<%= shortURL%>/delete" <%=shortURL %>/delete">
+            <form class="inline" method="POST" action="/urls/<%= shortURL%>/delete" <%=shortURL %>>
                 <button type="submit" class="btn btn-primary">Delete URL</button>
             </form>
             <a href="/urls/<%= shortURL %>"><button type="submit" class="btn btn-primary">Edit URL</button></a>
