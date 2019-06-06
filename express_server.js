@@ -105,5 +105,9 @@ app.post("/login", (req, res) => {
     userName = req.body.username;
     res.cookie('username', userName);
     res.redirect('/urls')
+});
 
+app.post("/logout", (req, res) => {
+    res.clearCookie('username', userName);
+    res.redirect('/urls')
 })
