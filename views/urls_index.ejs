@@ -19,10 +19,10 @@
         <% for (shortURL in urls) { %>
         <li>
             <b>
-                <a href=<%=`/u/${shortURL}` %>>
-                    <%=shortURL %> : </a></b>
+                <a href=<%= `/u/${shortURL}` %>>
+                    <%= shortURL %> : </a></b>
             <%= urls[shortURL] %>
-            <form class="inline" method="POST" action="/urls/<%= shortURL%>/delete" <%=shortURL %>>
+            <form class="inline" method="POST" action="/urls/<%= shortURL %>/delete" <%= shortURL %>>
                 <button type="submit" class="btn btn-primary">Delete URL</button>
             </form>
             <a href="/urls/<%= shortURL %>"><button type="submit" class="btn btn-primary">Edit URL</button></a>
