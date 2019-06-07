@@ -17,8 +17,8 @@ var urlDatabase = {
 const users = {
     "userRandomID": {
         id: "userRandomID",
-        email: "user@example.com",
-        password: "purple-monkey-dinosaur"
+        email: "123@123.com",
+        password: "123"
     },
     "user2RandomID": {
         id: "user2RandomID",
@@ -45,6 +45,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/urls/new", (req, res) => {
     let templateVars = {
         user_id: req.cookies["user_id"],
+        users: users,
     };
     res.render("urls_new", templateVars);
 });
@@ -66,7 +67,8 @@ app.get("/u/:shortURL", (req, res) => {
 app.get("/urls", (req, res) => {
     let templateVars = {
         user_id: req.cookies["user_id"],
-        urls: urlDatabase
+        urls: urlDatabase,
+        users: users,
     };
     res.render("urls_index", templateVars);
 });
@@ -75,7 +77,8 @@ app.get("/urls/:shortURL", (req, res) => {
     let templateVars = {
         user_id: req.cookies["user_id"],
         shortURL: req.params.shortURL,
-        longURL: urlDatabase
+        longURL: urlDatabase,
+        users: users,
     };
     res.render("urls_show", templateVars);
 });
@@ -114,14 +117,33 @@ app.get("/hello", (req, res) => {
 });
 
 
-// LOGIN / LOGOUT
+// LOGIN
+
+
+app.get("/login", (req, res) => {
+    res.render("urls_login")
+});
 
 app.post("/login", (req, res) => {
-    // console.log("user_id: ", req.body.user_id)
-    user_id = req.body.user_id;
+    let email = req.body.email;
+    let password = req.body.password;
+    let validUser = false;
+    for (let user in users) {
+        if (users[user].email == email && users[user].password == password) {
+            validUser = true;
+            user_id = user;
+        }
+    }
+    // console.log(validUser);
+    if (false) {
+        res.send("Please enter a valid email and password");
+        return;
+    }
     res.cookie('user_id', user_id);
     res.redirect('/urls')
 });
+
+// LOGOUT
 
 app.post("/logout", (req, res) => {
     res.clearCookie('user_id', user_id);
@@ -133,14 +155,14 @@ app.post("/logout", (req, res) => {
 let userAuthentication = (email, password) => {
     for (id in users) {
         let currentUser = users[id].email;
-        console.log("hello", email, currentUser)
+        // console.log("hello", email, currentUser)
         if (!email || !password) {
             return false;
         } else if (currentUser === email) {
-            console.log("match found")
+            // console.log("match found")
             return false;
         }
-        console.log("no match found");
+        // console.log("no match found");
         return true;
     }
 }

@@ -5,20 +5,19 @@
 
 
 <% if(user_id){ %>
-<h5 style="position: absolute; left: 10px; top: 10px;">Logged in as : <%= user_id %></h5>
+<h5 style="position: absolute; left: 10px; top: 10px;">Logged in as : <%= users[user_id].email %></h5>
 <form class="form" action="/logout" method="POST">
         <div class="form-group mb-2">
             <button style="position: absolute; left: 10px; top: 50px; padding: 2px 20px" type="submit" class="btn btn-primary">Logout</button>
         </div></form>
 <% } else{ %>
-<form class="form" action="/login" method="POST">
+<form class="form" action="/login" method="GET">
         <div class="form-group mb-2">
-            <input style="position: absolute; left: 10px; top: 10px;" type="text" name="user_id" placeholder="Enter user_id" style="width: 300px; margin: 1em">
             <button style="position: absolute; left: 10px; top: 50px; padding: 2px 20px" type="submit" type="submit" class="btn btn-primary">Login</button>
         </div></form> <% } %>
 
-<form class="form" action="/urls" method="GET">
+<form class="form" action="/register" method="GET">
         <div class="form-group mb-2">
-            <button style="position: absolute; left: 105px; top: 50px; padding: 2px 20px" type="submit" class="btn btn-primary">Home</button>
+            <button style="position: absolute; left: 105px; top: 50px; padding: 2px 20px" type="submit" class="btn btn-primary">Register</button>
         </div></form>
 
