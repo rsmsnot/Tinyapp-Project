@@ -72,7 +72,7 @@ app.post("/urls", (req, res) => {
         longURL: longURL,
         user_id: user_id
     }
-    console.log("user id", user_id);
+    // console.log("user id", user_id);
     res.redirect('urls/' + shortURL);
 });
 
@@ -89,7 +89,7 @@ app.get("/urls", (req, res) => {
         urls: urlDatabase,
         users: users,
     };
-    console.log("database ", urlDatabase);
+    // console.log("database ", urlDatabase);
     res.render("urls_index", templateVars);
 });
 
@@ -166,7 +166,7 @@ app.post("/login", (req, res) => {
     }
     // console.log(validUser);
     if (!validUser) {
-        res.send("Please enter a valid email and password");
+        res.send('<script>alert("Please enter a valid email address and password")</script>');
         return;
     }
     req.session.user_id = user_id;
@@ -205,7 +205,7 @@ app.post("/register", (req, res) => {
     let id = generateRandomString();
     let email = req.body.email;
     let password = bcrypt.hashSync(req.body.password, 10);
-    console.log(password)
+    // console.log(password)
     let validUser = userAuthentication(email, password)
     if (!validUser) {
         res.send('<script>alert("Please enter a valid email address and password")</script>');
