@@ -47,6 +47,10 @@ app.get("/urls/new", (req, res) => {
         user_id: req.cookies["user_id"],
         users: users,
     };
+    if (!templateVars.user_id) {
+        res.send("Please login with a valid email address and password");
+        return;
+    }
     res.render("urls_new", templateVars);
 });
 
@@ -101,7 +105,7 @@ app.post('/urls/:shortURL', (req, res) => {
 });
 
 app.get("/", (req, res) => {
-    res.send("Hello!");
+    res.redirect("/urls");
 });
 
 app.listen(PORT, () => {
@@ -110,10 +114,6 @@ app.listen(PORT, () => {
 
 app.get("/urls.json", (req, res) => {
     res.json(urlDatabase);
-});
-
-app.get("/hello", (req, res) => {
-    res.send("<html><body>Hello <b>World</b></body></html>\n");
 });
 
 
