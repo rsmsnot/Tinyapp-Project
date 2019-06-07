@@ -25,6 +25,7 @@
                     <%= shortURL %> : </a></b>
             <%= urls[shortURL].longURL %>
             <form class="inline" method="POST" action="/urls/<%= shortURL %>/delete" <%=shortURL %>>
+                <input type="hidden" name="user_id" value="user_id">
                 <button style="padding: 2px 20px" type="submit" class="btn btn-primary">Delete URL</button>
             </form>
             <a href="/urls/<%= shortURL %>"><button style="padding: 2px 20px" type="submit" class="btn btn-primary">Edit URL</button></a>
