@@ -4,11 +4,18 @@
 const express = require("express");
 const app = express();
 const PORT = 8080; // default port 8080
-const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
+var cookieSession = require('cookie-session')
 let user_id = '';
-app.use(cookieParser())
 app.set("view engine", "ejs")
+
+app.use(cookieSession({
+    name: 'session',
+    keys: ["Our lord and saviour Harry Kane"],
+
+    // Cookie Options
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 
 const urlDatabase = {
     "b2xVn2": { longURL: "http://www.lighthouselabs.ca", user_id: "userRandomID" },
@@ -45,7 +52,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/urls/new", (req, res) => {
     let templateVars = {
-        user_id: req.cookies["user_id"],
+        user_id: req.session.user_id,
         users: users,
     };
     if (!templateVars.user_id) {
@@ -75,7 +82,7 @@ app.get("/u/:shortURL", (req, res) => {
 
 app.get("/urls", (req, res) => {
     let templateVars = {
-        user_id: req.cookies["user_id"],
+        user_id: req.session.user_id,
         urls: urlDatabase,
         users: users,
     };
@@ -84,7 +91,7 @@ app.get("/urls", (req, res) => {
 
 app.get("/urls/:shortURL", (req, res) => {
     let templateVars = {
-        user_id: req.cookies["user_id"],
+        user_id: req.session.user_id,
         shortURL: req.params.shortURL,
         urls: urlDatabase,
         users: users,
@@ -158,14 +165,14 @@ app.post("/login", (req, res) => {
         res.send("Please enter a valid email and password");
         return;
     }
-    res.cookie('user_id', user_id);
+    req.session.user_id = user_id;
     res.redirect('/urls')
 });
 
 // LOGOUT
 
 app.post("/logout", (req, res) => {
-    res.clearCookie('user_id', user_id);
+    delete(req.session.user_id)
     res.redirect('/urls')
 })
 
@@ -201,6 +208,6 @@ app.post("/register", (req, res) => {
         return;
     }
     users[id] = { id: id, password: password, email: email }
-    res.cookie('user_id', id);
+    req.session.user_id = id;
     res.redirect('/urls');
 });
