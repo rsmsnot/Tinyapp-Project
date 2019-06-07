@@ -134,8 +134,8 @@ app.post("/login", (req, res) => {
             user_id = user;
         }
     }
-    // console.log(validUser);
-    if (false) {
+    console.log(validUser);
+    if (!validUser) {
         res.send("Please enter a valid email and password");
         return;
     }
