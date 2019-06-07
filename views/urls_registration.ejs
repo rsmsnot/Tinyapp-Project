@@ -7,15 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <h1 style="text-align:center">Tinyapp:<br><a href="http://localhost:8080/urls/new">Shorten a URL</a></h1>
+    <h1 style="position: absolute; left: 10px; top: 90px;" style="text-align:center">Tinyapp:<br><a href="http://localhost:8080/urls/new">Shorten a URL</a></h1>
 </head>
 
 <body style="font-size:20px; padding:50px;">
+    <a href="/urls"><button style="position: absolute; left: 10px; top: 10px; padding: 2px 20px" type="submit" class="btn btn-primary">Home</button></a>
+    <form class="form" action="/login" method="GET">
+        <div class="form-group mb-2">
+            <button style="position: absolute; left: 100px; top: 10px; padding: 2px 20px" type="submit" class="btn btn-primary">Login</button>
+        </div>
+    </form>
     <!-- Add EJS code here -->
     <br />
-    <form method="POST" action="/register">
+    <form style="position: absolute; left: 10px; top: 240px;" method="POST" action="/register">
         <input type="email" name="email" id="email" placeholder="Email Address">
-        <input type="password" name="password" id="password" placeholder="Pasword">
+        <input type="password" name="password" id="password" placeholder="Password">
         <button type="submit" name="Register" class="btn btn-primary">Register</button>
     </form>
 </body>

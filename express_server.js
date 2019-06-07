@@ -6,7 +6,6 @@ const app = express();
 const PORT = 8080; // default port 8080
 const bcrypt = require('bcrypt');
 var cookieSession = require('cookie-session')
-let user_id = '';
 app.set("view engine", "ejs")
 
 app.use(cookieSession({
@@ -50,6 +49,9 @@ const bodyParser = require("body-parser");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+//CREATE NEW
+
 app.get("/urls/new", (req, res) => {
     let templateVars = {
         user_id: req.session.user_id,
@@ -65,11 +67,12 @@ app.get("/urls/new", (req, res) => {
 app.post("/urls", (req, res) => {
     let shortURL = generateRandomString();
     let longURL = req.body.longURL;
+    let user_id = req.session.user_id;
     urlDatabase[shortURL] = {
         longURL: longURL,
         user_id: user_id
     }
-    // console.log(longURL);
+    console.log("user id", user_id);
     res.redirect('urls/' + shortURL);
 });
 
@@ -86,6 +89,7 @@ app.get("/urls", (req, res) => {
         urls: urlDatabase,
         users: users,
     };
+    console.log("database ", urlDatabase);
     res.render("urls_index", templateVars);
 });
 
@@ -105,10 +109,10 @@ app.get("/urls/:shortURL", (req, res) => {
 
 // delete
 app.post('/urls/:shortURL/delete', (req, res) => {
-    let email = req.body.email;
+    let user_id = req.session.user_id
     let password = req.body.password;
-    let validUser = userAuthentication(email, password)
-    if (!validUser) {
+    // let validUser = userAuthentication(email, password)
+    if (!user_id) {
         res.redirect("/login");
         return;
     }
@@ -200,11 +204,12 @@ app.get("/register", (req, res) => {
 app.post("/register", (req, res) => {
     let id = generateRandomString();
     let email = req.body.email;
-    let password = bcrypt.hashSync(req.body.password, 15);
+    let password = bcrypt.hashSync(req.body.password, 10);
     console.log(password)
     let validUser = userAuthentication(email, password)
     if (!validUser) {
-        res.send("Please enter a valid email address and password");
+        res.send('<script>alert("Please enter a valid email address and password")</script>');
+
         return;
     }
     users[id] = { id: id, password: password, email: email }

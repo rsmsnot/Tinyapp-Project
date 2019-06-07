@@ -1,23 +1,29 @@
 <!-- views/partials/header.ejs -->
 <!DOCTYPE html>
 <html lang="en">
-<h1 style="text-align:center">Tinyapp:<br><a href="http://localhost:8080/urls/new">Shorten a URL</a></h1>
-
-
+<h1 style="position: absolute; left: 10px; top: 90px;" style="text-align:center">Tinyapp:<br><a href="http://localhost:8080/urls/new">Shorten a URL</a></h1>
 <% if(user_id){ %>
-<h5 style="position: absolute; left: 10px; top: 10px;">Logged in as : <%= users[user_id].email %></h5>
+<a href="/urls"><button style="position: absolute; left: 10px; top: 10px; padding: 2px 20px" type="submit" class="btn btn-primary">Home</button></a>
+<h5 style="position: absolute; left: 10px; top: 50px;">Logged in as :
+    <%= users[user_id].email %>
+</h5>
 <form class="form" action="/logout" method="POST">
-        <div class="form-group mb-2">
-            <button style="position: absolute; left: 10px; top: 50px; padding: 2px 20px" type="submit" class="btn btn-primary">Logout</button>
-        </div></form>
+    <div class="form-group mb-2">
+        <button style="position: absolute; left: 100px; top: 10px; padding: 2px 20px" type="submit" class="btn btn-primary">Logout</button>
+    </div>
+</form>
+<br /><br /><br /><br /><br />
+<h2 style="position: absolute; left: 10px; top: 200px;">My URLs:</h2>
 <% } else{ %>
-<form class="form" action="/login" method="GET">
-        <div class="form-group mb-2">
-            <button style="position: absolute; left: 10px; top: 50px; padding: 2px 20px" type="submit" type="submit" class="btn btn-primary">Login</button>
-        </div></form> <% } %>
-
+<a href="/urls"><button style="position: absolute; left: 10px; top: 10px; padding: 2px 20px" type="submit" class="btn btn-primary">Home</button></a>
 <form class="form" action="/register" method="GET">
-        <div class="form-group mb-2">
-            <button style="position: absolute; left: 105px; top: 50px; padding: 2px 20px" type="submit" class="btn btn-primary">Register</button>
-        </div></form>
-
+    <div class="form-group mb-2">
+        <button style="position: absolute; left: 100px; top: 10px; padding: 2px 20px" type="submit" class="btn btn-primary">Register</button>
+    </div>
+</form>
+<form class="form" action="/login" method="GET">
+    <div class="form-group mb-2">
+        <button style="position: absolute; left: 207px; top: 10px; padding: 2px 20px" type="submit" type="submit" class="btn btn-primary">Login</button>
+    </div>
+</form>
+<% } %>

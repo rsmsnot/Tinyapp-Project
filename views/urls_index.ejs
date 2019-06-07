@@ -13,13 +13,12 @@
 <body style="font-size:20px; padding:50px;">
     <% include ../views/partials/_header %>
     <!-- Add EJS code here -->
-    <br />
-    <br />
-    <h2>My URLs:</h2>
     <ul>
         <% for (shortURL in urls) { %>
+        <% console.log(user_id); %>
         <% if (user_id == urls[shortURL].user_id) {%>
-        <li>
+        <br /> <br />
+        <li style="position: absolute; left: 10px;">
             <b>
                 <a href=<%=`/u/${shortURL}` %>>
                     <%= shortURL %> : </a></b>
