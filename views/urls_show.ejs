@@ -14,7 +14,7 @@
     <% include ../views/partials/_header %>
     <br />
     <h3>TinyURL for
-        <%= longURL[shortURL] %> :</h3>
+        <%= urls[shortURL].longURL %> :</h3>
     <ul>
         <li>
             <a href=<%=`/u/${shortURL}` %>>

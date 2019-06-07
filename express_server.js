@@ -9,9 +9,9 @@ let user_id = '';
 app.use(cookieParser())
 app.set("view engine", "ejs")
 
-var urlDatabase = {
-    "b2xVn2": "http://www.lighthouselabs.ca",
-    "9sm5xK": "http://www.google.com"
+const urlDatabase = {
+    "b2xVn2": { longURL: "http://www.lighthouselabs.ca", user_id: "userRandomID" },
+    "9sm5xK": { longURL: "http://www.google.com", user_id: "userRandomID" }
 };
 
 const users = {
@@ -22,8 +22,8 @@ const users = {
     },
     "user2RandomID": {
         id: "user2RandomID",
-        email: "user2@example.com",
-        password: "dishwasher-funk"
+        email: "1234@123.com",
+        password: "1234"
     }
 }
 
@@ -48,7 +48,7 @@ app.get("/urls/new", (req, res) => {
         users: users,
     };
     if (!templateVars.user_id) {
-        res.send("Please login with a valid email address and password");
+        res.redirect("/login");
         return;
     }
     res.render("urls_new", templateVars);
@@ -58,6 +58,7 @@ app.post("/urls", (req, res) => {
     let shortURL = generateRandomString();
     let longURL = req.body.longURL;
     urlDatabase[shortURL] = longURL;
+    // console.log(longURL);
     res.redirect('urls/' + shortURL);
 });
 
@@ -81,14 +82,25 @@ app.get("/urls/:shortURL", (req, res) => {
     let templateVars = {
         user_id: req.cookies["user_id"],
         shortURL: req.params.shortURL,
-        longURL: urlDatabase,
+        urls: urlDatabase,
         users: users,
     };
+    if (!templateVars.user_id) {
+        res.redirect("/login");
+        return;
+    }
     res.render("urls_show", templateVars);
 });
 
 // delete
 app.post('/urls/:shortURL/delete', (req, res) => {
+    let email = req.body.email;
+    let password = req.body.password;
+    let validUser = userAuthentication(email, password)
+    if (!validUser) {
+        res.redirect("/login");
+        return;
+    }
     delete urlDatabase[req.params.shortURL];
     res.redirect('/urls');
 });
@@ -100,7 +112,7 @@ app.post('/urls/:shortURL', (req, res) => {
     const shortURL = req.params.shortURL;
     // console.log(newName, shortURL)
     // if (newName) {
-    urlDatabase[shortURL] = newName; // }
+    urlDatabase[shortURL].longURL = newName; // }
     res.redirect(`/urls/${shortURL}`);
 });
 
@@ -134,7 +146,7 @@ app.post("/login", (req, res) => {
             user_id = user;
         }
     }
-    console.log(validUser);
+    // console.log(validUser);
     if (!validUser) {
         res.send("Please enter a valid email and password");
         return;
@@ -177,7 +189,7 @@ app.post("/register", (req, res) => {
     let password = req.body.password;
     let validUser = userAuthentication(email, password)
     if (!validUser) {
-        res.send("Please enter a valid email and password");
+        res.send("Please enter a valid email address and password");
         return;
     }
     users[id] = { id: id, password: password, email: email }

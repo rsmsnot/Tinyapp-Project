@@ -18,17 +18,18 @@
     <h2>My URLs:</h2>
     <ul>
         <% for (shortURL in urls) { %>
+        <% if (user_id == urls[shortURL].user_id) {%>
         <li>
             <b>
                 <a href=<%=`/u/${shortURL}` %>>
                     <%= shortURL %> : </a></b>
-            <%= urls[shortURL] %>
+            <%= urls[shortURL].longURL %>
             <form class="inline" method="POST" action="/urls/<%= shortURL %>/delete" <%=shortURL %>>
                 <button style="padding: 2px 20px" type="submit" class="btn btn-primary">Delete URL</button>
             </form>
             <a href="/urls/<%= shortURL %>"><button style="padding: 2px 20px" type="submit" class="btn btn-primary">Edit URL</button></a>
         </li>
-        <% }; %>
+        <% }}; %>
     </ul>
 </body>
 
