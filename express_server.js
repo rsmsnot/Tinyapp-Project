@@ -11,8 +11,6 @@ app.set("view engine", "ejs")
 app.use(cookieSession({
     name: 'session',
     keys: ["Our lord and saviour Harry Kane"],
-
-    // Cookie Options
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
 
@@ -33,6 +31,8 @@ const users = {
         password: "1234"
     }
 }
+
+// FUNCTION TO GENERATE A RANDOM STRING FOR A USERNAME
 
 function generateRandomString() {
     let characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
@@ -72,11 +72,11 @@ app.post("/urls", (req, res) => {
         longURL: longURL,
         user_id: user_id
     }
-    // console.log("user id", user_id);
     res.redirect('urls/' + shortURL);
 });
 
-// change short URLs into links
+
+// CHANGE SHORT URLS INTO LINKS
 
 app.get("/u/:shortURL", (req, res) => {
     const longURL = urlDatabase[req.params.shortURL];
@@ -89,7 +89,6 @@ app.get("/urls", (req, res) => {
         urls: urlDatabase,
         users: users,
     };
-    // console.log("database ", urlDatabase);
     res.render("urls_index", templateVars);
 });
 
@@ -107,11 +106,10 @@ app.get("/urls/:shortURL", (req, res) => {
     res.render("urls_show", templateVars);
 });
 
-// delete
+// DELETE
 app.post('/urls/:shortURL/delete', (req, res) => {
     let user_id = req.session.user_id
     let password = req.body.password;
-    // let validUser = userAuthentication(email, password)
     if (!user_id) {
         res.redirect("/login");
         return;
@@ -124,12 +122,11 @@ app.post('/urls/:shortURL/delete', (req, res) => {
     }
 });
 
-//edit
+//EDIT
 
 app.post('/urls/:shortURL', (req, res) => {
     const newName = req.body.newName;
     const shortURL = req.params.shortURL;
-    // console.log(newName, shortURL)
     urlDatabase[shortURL].longURL = newName; // }
     res.redirect(`/urls/${shortURL}`);
 });
@@ -164,7 +161,6 @@ app.post("/login", (req, res) => {
             user_id = user;
         }
     }
-    // console.log(validUser);
     if (!validUser) {
         res.send('<script>alert("Please enter a valid email address and password")</script>');
         return;
@@ -182,17 +178,16 @@ app.post("/logout", (req, res) => {
 
 //REGISTRATION
 
+//FUNCTION AUTHENTICATES USER AGAINST EXISTING DATABASE
+
 let userAuthentication = (email, password) => {
     for (id in users) {
         let currentUser = users[id].email;
-        // console.log("hello", email, currentUser)
         if (!email || !password) {
             return false;
         } else if (currentUser === email) {
-            // console.log("match found")
             return false;
         }
-        // console.log("no match found");
         return true;
     }
 }
@@ -201,11 +196,12 @@ app.get("/register", (req, res) => {
     res.render("urls_registration")
 });
 
+//NEW USER REGISTRATION WILL ENCRYPT PASSWORD
+
 app.post("/register", (req, res) => {
     let id = generateRandomString();
     let email = req.body.email;
     let password = bcrypt.hashSync(req.body.password, 10);
-    // console.log(password)
     let validUser = userAuthentication(email, password)
     if (!validUser) {
         res.send('<script>alert("Please enter a valid email address and password")</script>');
