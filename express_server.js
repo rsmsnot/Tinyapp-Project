@@ -107,6 +107,7 @@ app.get("/urls/:shortURL", (req, res) => {
 });
 
 // DELETE
+
 app.post('/urls/:shortURL/delete', (req, res) => {
     let user_id = req.session.user_id
     let password = req.body.password;
@@ -172,7 +173,8 @@ app.post("/login", (req, res) => {
 // LOGOUT
 
 app.post("/logout", (req, res) => {
-    delete(req.session.user_id)
+    // delete(req.session.user_id)
+    req.session.user_id = ""
     res.redirect('/urls')
 })
 
