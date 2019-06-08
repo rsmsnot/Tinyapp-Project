@@ -1,8 +1,8 @@
-#Tiny App - URL Shortener
+# Tiny App - URL Shortener
 
 
 
-#### git@github.com:rsmsnot/Tinyapp-Project.git
+### $ git clone https://git@github.com:rsmsnot/Tinyapp-Project.git
 
 ![Homepage](/readme-images/Homepage.png)
 
