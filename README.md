@@ -2,7 +2,7 @@
 
 
 
-####git@github.com:rsmsnot/Tinyapp-Project.git
+#### git@github.com:rsmsnot/Tinyapp-Project.git
 
 ![Homepage](/readme-images/Homepage.png)
 
@@ -13,7 +13,7 @@
 ![User Page](/readme-images/User-Page.png)
 
 
-###Dependencies
+### Dependencies
 
 * bcrypt
 * body-parser
