@@ -6,7 +6,7 @@ It was my goal to create a simple user-interface, which I have also formatted to
 ## Getting Started
 
 - Open your terminal and clone the git repository using ```git clone https://git@github.com:rsmsnot/Tinyapp-Project.git```
-- Install the necessary dependencies using the ```npm install``` command.
+- Navigate into the project folder and install the necessary dependencies using the ```npm install``` command.
 - Run the app using the ```npm start``` command
 - Open your web browser and navigate to http://localhost:8080 
 
