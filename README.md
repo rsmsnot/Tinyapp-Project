@@ -3,7 +3,7 @@ Tinyapp is a full stack web application designed to allow users to shorten URLs,
 
 ## Getting Started
 
-- Open your terminal and navigate to the project folder
+- Open your terminal and clone the git repository using ```git clone https://git@github.com:rsmsnot/Tinyapp-Project.git```
 - Install the necessary dependencies using the ```npm install``` command.
 - Run the app using the ```npm start``` command
 - Open your web browser and navigate to http://localhost:8080 
@@ -18,8 +18,6 @@ Tinyapp is a full stack web application designed to allow users to shorten URLs,
 * ejs
 * express
 
-
-### $ git clone https://git@github.com:rsmsnot/Tinyapp-Project.git
 
 ![Homepage](/readme-images/Homepage.png)
 
