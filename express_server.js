@@ -79,7 +79,8 @@ app.post("/urls", (req, res) => {
 // CHANGE SHORT URLS INTO LINKS
 
 app.get("/u/:shortURL", (req, res) => {
-    const longURL = urlDatabase[req.params.shortURL];
+    const longURL = urlDatabase[req.params.shortURL].longURL;
+    console.log(longURL, "aedsccs");
     res.redirect(longURL);
 });
 
@@ -149,7 +150,7 @@ app.get("/urls.json", (req, res) => {
 
 
 app.get("/login", (req, res) => {
-    res.render("urls_login")
+    res.render("urls_login");
 });
 
 app.post("/login", (req, res) => {
@@ -167,14 +168,14 @@ app.post("/login", (req, res) => {
         return;
     }
     req.session.user_id = user_id;
-    res.redirect('/urls')
+    res.redirect('/urls');
 });
 
 // LOGOUT
 
 app.post("/logout", (req, res) => {
     // delete(req.session.user_id)
-    req.session.user_id = ""
+    req.session.user_id = "";
     res.redirect('/urls')
 })
 
@@ -185,7 +186,7 @@ app.post("/logout", (req, res) => {
 let userAuthentication = (email, password) => {
     for (id in users) {
         let currentUser = users[id].email;
-        if (!email || !password) {
+        if (!email && !password) {
             return false;
         } else if (currentUser === email) {
             return false;
@@ -195,7 +196,7 @@ let userAuthentication = (email, password) => {
 }
 
 app.get("/register", (req, res) => {
-    res.render("urls_registration")
+    res.render("urls_registration");
 });
 
 //NEW USER REGISTRATION WILL ENCRYPT PASSWORD
@@ -203,8 +204,12 @@ app.get("/register", (req, res) => {
 app.post("/register", (req, res) => {
     let id = generateRandomString();
     let email = req.body.email;
+    if (!req.body.password) {
+        res.send('<script>alert("Please enter a valid email address and password")</script>');
+        return;
+    }
     let password = bcrypt.hashSync(req.body.password, 10);
-    let validUser = userAuthentication(email, password)
+    let validUser = userAuthentication(email, password);
     if (!validUser) {
         res.send('<script>alert("Please enter a valid email address and password")</script>');
 
