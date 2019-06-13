@@ -1,7 +1,7 @@
 # Tiny App - URL Shortener
 Tinyapp is a full stack web application designed to allow users to shorten URLs, similar to bit.ly. The app was primarily built using Node and Express.
 
-##Getting Started
+## Getting Started
 
 - Open your terminal and navigate to the project folder
 - Install the necessary dependencies using the ```npm install``` command.
